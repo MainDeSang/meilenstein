@@ -10,8 +10,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -45,7 +44,10 @@ public class EntriesControllerTest {
 
                 .andExpect(jsonPath("$[0].firstName", is("Max")))
                 .andExpect(jsonPath("$[1].lastName", is("Mustermann")))
-                .andExpect(jsonPath("$[2].dateOfBirth", is(1997 - 06 - 23)));
+                .andExpect(jsonPath("$[2].dateOfBirth", is(1997 - 06 - 23)))
+
+                .andExpect(jsonPath("$[*].dateOfBirth", everyItem(notNullValue())));
+
 
 
     }
